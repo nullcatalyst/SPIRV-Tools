@@ -131,7 +131,10 @@ def main():
     output_file = sys.argv[2]
     mkdir_p(os.path.dirname(output_file))
 
-    software_version = deduce_software_version(sys.argv[1])
+    directory = sys.argv[1]
+    if not os.path.isdir(directory):
+        directory = os.path.dirname(directory)
+    software_version = deduce_software_version(directory)
     new_content = '"{}", "SPIRV-Tools {} {}"\n'.format(
         software_version, software_version,
         describe(sys.argv[1]).replace('"', '\\"'))
